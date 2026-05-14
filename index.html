@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detect Technologies – Backend Engineer Assessment Prep</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; }
+
+  header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f2744 100%);
+    padding: 28px 32px;
+    border-bottom: 2px solid #2563eb;
+  }
+  header h1 { font-size: 1.5rem; color: #60a5fa; font-weight: 700; }
+  header p { font-size: 0.9rem; color: #94a3b8; margin-top: 4px; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 20px; }
+
+  /* TABS */
+  .tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .tab-btn {
+    padding: 9px 18px; border-radius: 8px; border: 1.5px solid #334155;
+    background: #1e2433; color: #94a3b8; cursor: pointer; font-size: 0.85rem; font-weight: 600;
+    transition: all .2s;
+  }
+  .tab-btn.active { background: #2563eb; border-color: #2563eb; color: #fff; }
+  .tab-btn:hover:not(.active) { border-color: #60a5fa; color: #60a5fa; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* CONCEPT CARDS */
+  .concept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .concept-card {
+    background: #1e2433; border: 1.5px solid #2d3748; border-radius: 12px; padding: 20px;
+    transition: border-color .2s;
+  }
+  .concept-card:hover { border-color: #3b82f6; }
+  .concept-card .icon { font-size: 1.8rem; margin-bottom: 10px; }
+  .concept-card h3 { font-size: 1rem; color: #60a5fa; margin-bottom: 8px; }
+  .concept-card p { font-size: 0.83rem; color: #94a3b8; line-height: 1.6; }
+  .concept-card ul { margin-top: 8px; padding-left: 16px; }
+  .concept-card ul li { font-size: 0.82rem; color: #cbd5e1; margin-bottom: 4px; }
+  .tag { display: inline-block; background: #1a3a5c; color: #93c5fd; border-radius: 4px;
+    font-size: 0.72rem; padding: 2px 8px; margin: 2px 2px 0 0; }
+
+  /* MCQ */
+  .mcq-controls { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+  .mcq-controls select {
+    padding: 8px 14px; border-radius: 8px; background: #1e2433; border: 1.5px solid #334155;
+    color: #e2e8f0; font-size: 0.85rem; cursor: pointer;
+  }
+  .btn {
+    padding: 9px 20px; border-radius: 8px; border: none; cursor: pointer;
+    font-size: 0.85rem; font-weight: 600; transition: all .2s;
+  }
+  .btn-primary { background: #2563eb; color: #fff; }
+  .btn-primary:hover { background: #1d4ed8; }
+  .btn-success { background: #16a34a; color: #fff; }
+  .btn-success:hover { background: #15803d; }
+  .btn-outline { background: transparent; border: 1.5px solid #334155; color: #94a3b8; }
+  .btn-outline:hover { border-color: #60a5fa; color: #60a5fa; }
+
+  .progress-bar-wrap { background: #1e2433; border-radius: 99px; height: 8px; margin-bottom: 20px; }
+  .progress-bar { height: 8px; border-radius: 99px; background: linear-gradient(90deg,#2563eb,#06b6d4); transition: width .4s; }
+
+  .score-badge {
+    background: #1e2433; border: 1.5px solid #334155; border-radius: 10px;
+    padding: 12px 20px; font-size: 0.9rem; color: #94a3b8; margin-bottom: 16px;
+    display: flex; gap: 20px; flex-wrap: wrap;
+  }
+  .score-badge span b { color: #60a5fa; }
+
+  .question-card {
+    background: #1e2433; border: 1.5px solid #2d3748; border-radius: 14px; padding: 24px; margin-bottom: 18px;
+  }
+  .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .q-num { font-size: 0.78rem; color: #475569; font-weight: 600; }
+  .q-topic { font-size: 0.73rem; padding: 3px 10px; border-radius: 99px; background: #1a3a5c; color: #93c5fd; }
+  .q-text { font-size: 0.95rem; color: #e2e8f0; margin-bottom: 16px; line-height: 1.6; }
+  .q-code { background: #0f1117; border: 1px solid #334155; border-radius: 8px;
+    padding: 12px 16px; font-family: 'Courier New', monospace; font-size: 0.82rem;
+    color: #a5f3fc; margin-bottom: 14px; white-space: pre-wrap; overflow-x: auto; }
+
+  .options { display: grid; gap: 10px; }
+  .option-btn {
+    padding: 11px 16px; border-radius: 9px; border: 1.5px solid #334155;
+    background: #0f1117; color: #cbd5e1; text-align: left; cursor: pointer;
+    font-size: 0.87rem; transition: all .2s;
+  }
+  .option-btn:hover:not(:disabled) { border-color: #3b82f6; background: #1a2744; }
+  .option-btn.correct { border-color: #16a34a; background: #052e16; color: #4ade80; }
+  .option-btn.wrong { border-color: #dc2626; background: #2d0a0a; color: #f87171; }
+  .option-btn.reveal-correct { border-color: #16a34a; background: #052e16; color: #4ade80; }
+  .option-btn:disabled { cursor: default; }
+
+  .explanation {
+    margin-top: 14px; background: #0f1117; border-left: 3px solid #2563eb;
+    padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.85rem; color: #94a3b8; line-height: 1.6;
+  }
+  .explanation b { color: #60a5fa; }
+
+  .result-panel {
+    background: #1e2433; border: 1.5px solid #334155; border-radius: 14px;
+    padding: 32px; text-align: center; margin-top: 8px;
+  }
+  .result-panel h2 { font-size: 1.5rem; margin-bottom: 8px; }
+  .result-panel .big-score { font-size: 3rem; font-weight: 700; color: #60a5fa; }
+  .result-panel p { color: #94a3b8; margin: 8px 0 20px; }
+
+  /* TIPS */
+  .tips-grid { display: grid; gap: 14px; }
+  .tip-card { background: #1e2433; border: 1.5px solid #2d3748; border-radius: 12px; padding: 18px 22px; }
+  .tip-card h4 { color: #f59e0b; margin-bottom: 8px; font-size: 0.95rem; }
+  .tip-card p, .tip-card li { font-size: 0.85rem; color: #94a3b8; line-height: 1.7; }
+  .tip-card ul { padding-left: 18px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎯 Detect Technologies – Backend Engineer Assessment Prep</h1>
+  <p>Python · DSA · REST APIs · Problem Solving · MCQ Practice</p>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('concepts')">📚 Concepts</button>
+    <button class="tab-btn" onclick="showTab('mcq')">🧠 MCQ Practice</button>
+    <button class="tab-btn" onclick="showTab('tips')">💡 Exam Tips</button>
+  </div>
+
+  <!-- CONCEPTS -->
+  <div id="tab-concepts" class="tab-panel active">
+    <div class="concept-grid" id="conceptGrid"></div>
+  </div>
+
+  <!-- MCQ -->
+  <div id="tab-mcq" class="tab-panel">
+    <div class="mcq-controls">
+      <select id="topicFilter">
+        <option value="all">All Topics</option>
+        <option value="Python Basics">Python Basics</option>
+        <option value="Data Structures">Data Structures</option>
+        <option value="Algorithms">Algorithms</option>
+        <option value="Strings">Strings</option>
+        <option value="REST APIs">REST APIs</option>
+        <option value="Functions">Functions</option>
+      </select>
+      <button class="btn btn-primary" onclick="startQuiz()">▶ Start Quiz</button>
+      <button class="btn btn-outline" onclick="resetQuiz()">↺ Reset</button>
+    </div>
+    <div id="scoreDisplay" class="score-badge" style="display:none"></div>
+    <div class="progress-bar-wrap" id="progressWrap" style="display:none">
+      <div class="progress-bar" id="progressBar" style="width:0%"></div>
+    </div>
+    <div id="quizContainer"></div>
+  </div>
+
+  <!-- TIPS -->
+  <div id="tab-tips" class="tab-panel">
+    <div class="tips-grid" id="tipsGrid"></div>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const concepts = [
+  {
+    icon: "🐍",
+    title: "Python Basics",
+    desc: "Core language fundamentals tested in every round.",
+    points: ["Data types: int, float, str, bool, list, dict, set, tuple","Input/Output: input(), print(), type casting","Operators: arithmetic, comparison, logical, bitwise","String formatting: f-strings, .format()","Mutable vs Immutable types"],
+    tags: ["syntax","types","I/O"]
+  },
+  {
+    icon: "📋",
+    title: "Lists & Arrays",
+    desc: "Most commonly tested DSA topic. Think of them as candy boxes.",
+    points: ["Indexing & slicing: lst[0], lst[-1], lst[1:4]","append, insert, remove, pop, sort, reverse","List comprehensions: [x*2 for x in lst if x>0]","2D lists (matrix traversal)","Time complexity of operations"],
+    tags: ["DSA","arrays","slicing"]
+  },
+  {
+    icon: "🔤",
+    title: "Strings",
+    desc: "Strings are immutable sequences — treat them as word necklaces.",
+    points: ["Slicing, concatenation, repetition","Methods: split, join, strip, replace, find, count","Palindrome & anagram checks","String formatting & conversion","ord() and chr() for character codes"],
+    tags: ["DSA","strings","methods"]
+  },
+  {
+    icon: "📚",
+    title: "Dictionaries & Sets",
+    desc: "Key-value pairs and unique collections — essential for lookup problems.",
+    points: ["dict: get, items, keys, values, update","Frequency counting with dicts","Set operations: union, intersection, difference","defaultdict from collections","Checking membership in O(1)"],
+    tags: ["DSA","dict","set"]
+  },
+  {
+    icon: "🔄",
+    title: "Loops & Conditions",
+    desc: "Control flow is tested in almost every coding question.",
+    points: ["for, while, break, continue, pass","Nested loops and loop patterns","Ternary expressions: x if cond else y","range() variations: range(start, stop, step)","Enumerate and zip in loops"],
+    tags: ["logic","loops","conditions"]
+  },
+  {
+    icon: "🧩",
+    title: "Functions & Modularity",
+    desc: "Write clean, reusable code using functions.",
+    points: ["def, return, default args, *args, **kwargs","Lambda functions","Scope: local vs global","Recursion basics (factorial, fibonacci)","Pure functions and side effects"],
+    tags: ["functions","recursion","lambda"]
+  },
+  {
+    icon: "🌐",
+    title: "REST APIs",
+    desc: "Conceptual MCQs on REST — know the fundamentals cold.",
+    points: ["HTTP methods: GET, POST, PUT, DELETE, PATCH","Status codes: 200, 201, 400, 401, 403, 404, 500","JSON format: serialization & deserialization","Stateless nature of REST","Endpoints, headers, request body, query params"],
+    tags: ["REST","HTTP","APIs"]
+  },
+  {
+    icon: "⚡",
+    title: "Algorithms & Complexity",
+    desc: "Understand time/space complexity for common patterns.",
+    points: ["Linear search O(n) vs Binary search O(log n)","Bubble, selection, insertion sort","Two-pointer & sliding window techniques","Recursion & memoization basics","Big-O: O(1), O(n), O(n²), O(log n)"],
+    tags: ["algorithms","Big-O","sorting"]
+  }
+];
+
+const allQuestions = [
+  // Python Basics
+  { topic:"Python Basics", q:"What is the output of: print(type(5/2))?",
+    opts:["<class 'int'>","<class 'float'>","<class 'complex'>","<class 'str'>"],
+    ans:1, exp:"In Python 3, / always returns a float. 5/2 = 2.5, so type is float. Use // for integer division." },
+  { topic:"Python Basics", q:"Which of these is IMMUTABLE in Python?",
+    opts:["list","dict","tuple","set"],
+    ans:2, exp:"Tuples are immutable — once created, they cannot be changed. Lists, dicts, and sets are mutable." },
+  { topic:"Python Basics", q:"What does x = x or 10 do when x = 0?",
+    opts:["x remains 0","x becomes 10","x becomes '010'","Raises TypeError"],
+    ans:1, exp:"0 is falsy in Python. So 0 or 10 evaluates to 10. This is a common default-value pattern." },
+  { topic:"Python Basics",
+    q:"What is the output?",
+    code:"a = [1, 2, 3]\nb = a\nb.append(4)\nprint(a)",
+    opts:["[1, 2, 3]","[1, 2, 3, 4]","[4]","Error"],
+    ans:1, exp:"b = a makes b point to the same list object (shallow copy). Appending via b also changes a. Use b = a[:] or a.copy() to get a separate copy." },
+  { topic:"Python Basics", q:"What does range(2, 10, 3) produce?",
+    opts:["[2, 5, 8]","[2, 4, 6, 8, 10]","[3, 6, 9]","[2, 3, 4, 5, 6, 7, 8, 9]"],
+    ans:0, exp:"range(start, stop, step): starts at 2, adds 3 each time → 2, 5, 8. Stops before 10." },
+
+  // Data Structures
+  { topic:"Data Structures",
+    q:"What is the output?",
+    code:"lst = [10, 20, 30, 40, 50]\nprint(lst[1:4])",
+    opts:["[10, 20, 30]","[20, 30, 40]","[20, 30, 40, 50]","[10, 20, 30, 40]"],
+    ans:1, exp:"Slicing lst[1:4] returns elements at indices 1, 2, 3 (not 4). So [20, 30, 40]." },
+  { topic:"Data Structures", q:"Which method removes AND returns the last element of a list?",
+    opts:["remove()","delete()","pop()","discard()"],
+    ans:2, exp:"pop() with no argument removes and returns the last element. pop(i) removes at index i. remove(val) removes by value (no return)." },
+  { topic:"Data Structures",
+    q:"What does this return?",
+    code:"d = {'a':1, 'b':2, 'c':3}\nprint(d.get('x', 99))",
+    opts:["None","KeyError","0","99"],
+    ans:3, exp:"dict.get(key, default) returns the default value (99) if the key 'x' is not found, instead of raising a KeyError." },
+  { topic:"Data Structures", q:"What is the time complexity of checking membership in a Python set?",
+    opts:["O(n)","O(log n)","O(1)","O(n²)"],
+    ans:2, exp:"Python sets use hash tables, so membership checks (x in my_set) are O(1) average case — much faster than lists O(n)." },
+  { topic:"Data Structures",
+    q:"What is the output?",
+    code:"s = {1, 2, 3, 2, 1}\nprint(len(s))",
+    opts:["5","4","3","2"],
+    ans:2, exp:"Sets automatically remove duplicates. {1, 2, 3, 2, 1} becomes {1, 2, 3}, which has length 3." },
+
+  // Algorithms
+  { topic:"Algorithms", q:"What is the time complexity of Binary Search?",
+    opts:["O(n)","O(n²)","O(log n)","O(n log n)"],
+    ans:2, exp:"Binary Search halves the search space on each step, giving O(log n) time. It requires a sorted array." },
+  { topic:"Algorithms", q:"Which sorting algorithm has O(n²) average time complexity?",
+    opts:["Merge Sort","Quick Sort (average)","Bubble Sort","Heap Sort"],
+    ans:2, exp:"Bubble Sort compares adjacent elements and bubbles them up — O(n²) in both average and worst case. Merge Sort and Heap Sort are O(n log n)." },
+  { topic:"Algorithms",
+    q:"What does this function compute?",
+    code:"def f(n):\n    if n <= 1:\n        return n\n    return f(n-1) + f(n-2)",
+    opts:["Factorial of n","nth Fibonacci number","Sum of first n numbers","Power of 2"],
+    ans:1, exp:"f(0)=0, f(1)=1, f(n)=f(n-1)+f(n-2) is the classic recursive Fibonacci sequence." },
+  { topic:"Algorithms", q:"What is the best case time complexity of linear search?",
+    opts:["O(n)","O(log n)","O(1)","O(n²)"],
+    ans:2, exp:"Best case for linear search is O(1) — when the target element is the very first element in the array." },
+
+  // Strings
+  { topic:"Strings",
+    q:"What is the output?",
+    code:"s = 'Hello World'\nprint(s[::-1])",
+    opts:["dlroW olleH","Hello World","World Hello","olleH dlroW"],
+    ans:0, exp:"s[::-1] uses step -1 to reverse the string, giving 'dlroW olleH'." },
+  { topic:"Strings",
+    q:"What does this print?",
+    code:"words = 'one,two,three'\nprint(words.split(','))",
+    opts:["['one,two,three']","['one', 'two', 'three']","('one','two','three')","one two three"],
+    ans:1, exp:"str.split(sep) splits the string by the separator and returns a list of substrings." },
+  { topic:"Strings", q:"How do you check if a string 'racecar' is a palindrome?",
+    opts:["s == s.reverse()","s == s[::-1]","s.palindrome()","reversed(s) == s"],
+    ans:1, exp:"s[::-1] reverses the string. Comparing s == s[::-1] returns True for palindromes like 'racecar'." },
+  { topic:"Strings",
+    q:"What is the output?",
+    code:"print('ab' * 3)",
+    opts:["ab3","ababab","ab ab ab","Error"],
+    ans:1, exp:"String repetition with * repeats the string n times. 'ab' * 3 = 'ababab'." },
+
+  // REST APIs
+  { topic:"REST APIs", q:"Which HTTP method is used to UPDATE an existing resource?",
+    opts:["GET","POST","PUT","DELETE"],
+    ans:2, exp:"PUT is used to update/replace an existing resource. POST creates a new one. PATCH is for partial updates. GET retrieves, DELETE removes." },
+  { topic:"REST APIs", q:"What HTTP status code means 'Resource Not Found'?",
+    opts:["200","201","400","404"],
+    ans:3, exp:"404 Not Found — the server couldn't find the requested resource. 200=OK, 201=Created, 400=Bad Request, 500=Server Error." },
+  { topic:"REST APIs", q:"REST APIs are _______, meaning the server does not store session state.",
+    opts:["stateful","stateless","synchronous","persistent"],
+    ans:1, exp:"REST is stateless — each request from the client must contain all information needed. The server stores no client session between requests." },
+  { topic:"REST APIs", q:"Which status code is returned for a successfully CREATED resource via POST?",
+    opts:["200","201","204","301"],
+    ans:1, exp:"201 Created is the correct response when a POST request successfully creates a new resource on the server." },
+
+  // Functions
+  { topic:"Functions",
+    q:"What is the output?",
+    code:"def greet(name='World'):\n    return f'Hello, {name}!'\n\nprint(greet())",
+    opts:["Hello, !","Hello, World!","Error: missing arg","Hello, name!"],
+    ans:1, exp:"'World' is a default argument. When greet() is called without arguments, name defaults to 'World'." },
+  { topic:"Functions",
+    q:"What does this lambda return for x=5?",
+    code:"square = lambda x: x ** 2",
+    opts:["10","52","25","Error"],
+    ans:2, exp:"lambda x: x**2 defines an anonymous function. For x=5, it returns 5**2 = 25." },
+  { topic:"Functions",
+    q:"What is the output?",
+    code:"def add(*args):\n    return sum(args)\n\nprint(add(1, 2, 3, 4))",
+    opts:["Error","[1,2,3,4]","10","(1,2,3,4)"],
+    ans:2, exp:"*args collects all positional arguments into a tuple. sum((1,2,3,4)) = 10." },
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let activeQuestions = [];
+let answered = {};
+let score = 0;
+
+// ─── TABS ────────────────────────────────────────────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ─── CONCEPTS ────────────────────────────────────────────────────────────────
+function renderConcepts() {
+  const grid = document.getElementById('conceptGrid');
+  grid.innerHTML = concepts.map(c => `
+    <div class="concept-card">
+      <div class="icon">${c.icon}</div>
+      <h3>${c.title}</h3>
+      <p>${c.desc}</p>
+      <ul>${c.points.map(p => `<li>${p}</li>`).join('')}</ul>
+      <div style="margin-top:10px">${c.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+    </div>
+  `).join('');
+}
+
+// ─── QUIZ ────────────────────────────────────────────────────────────────────
+function startQuiz() {
+  const filter = document.getElementById('topicFilter').value;
+  activeQuestions = filter === 'all' ? [...allQuestions]
+    : allQuestions.filter(q => q.topic === filter);
+  // shuffle
+  activeQuestions = activeQuestions.sort(() => Math.random() - 0.5);
+  answered = {}; score = 0;
+  renderQuiz();
+}
+
+function resetQuiz() {
+  answered = {}; score = 0; activeQuestions = [];
+  document.getElementById('quizContainer').innerHTML = '';
+  document.getElementById('scoreDisplay').style.display = 'none';
+  document.getElementById('progressWrap').style.display = 'none';
+}
+
+function renderQuiz() {
+  if (!activeQuestions.length) { document.getElementById('quizContainer').innerHTML = '<p style="color:#94a3b8">No questions for selected topic.</p>'; return; }
+  updateProgress();
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = activeQuestions.map((q, i) => `
+    <div class="question-card" id="qcard-${i}">
+      <div class="q-header">
+        <span class="q-num">Q${i+1} of ${activeQuestions.length}</span>
+        <span class="q-topic">${q.topic}</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      ${q.code ? `<div class="q-code">${q.code}</div>` : ''}
+      <div class="options" id="opts-${i}">
+        ${q.opts.map((o, j) => `<button class="option-btn" onclick="selectAnswer(${i},${j})">${String.fromCharCode(65+j)}. ${o}</button>`).join('')}
+      </div>
+      <div id="exp-${i}" style="display:none"></div>
+    </div>
+  `).join('');
+
+  document.getElementById('scoreDisplay').style.display = 'flex';
+  document.getElementById('progressWrap').style.display = 'block';
+  updateScoreDisplay();
+}
+
+function selectAnswer(qIdx, choiceIdx) {
+  if (answered[qIdx] !== undefined) return;
+  answered[qIdx] = choiceIdx;
+  const q = activeQuestions[qIdx];
+  const correct = choiceIdx === q.ans;
+  if (correct) score++;
+
+  const btns = document.querySelectorAll(`#opts-${qIdx} .option-btn`);
+  btns.forEach((btn, j) => {
+    btn.disabled = true;
+    if (j === q.ans) btn.classList.add('correct');
+    else if (j === choiceIdx && !correct) btn.classList.add('wrong');
+  });
+
+  const expDiv = document.getElementById(`exp-${qIdx}`);
+  expDiv.style.display = 'block';
+  expDiv.innerHTML = `<div class="explanation"><b>${correct ? '✅ Correct!' : '❌ Incorrect.'}</b> ${q.exp}</div>`;
+
+  updateScoreDisplay();
+  updateProgress();
+
+  if (Object.keys(answered).length === activeQuestions.length) showResult();
+}
+
+function updateScoreDisplay() {
+  const done = Object.keys(answered).length;
+  document.getElementById('scoreDisplay').innerHTML =
+    `<span>✅ Correct: <b>${score}</b></span><span>❌ Wrong: <b>${done - score}</b></span><span>📋 Remaining: <b>${activeQuestions.length - done}</b></span>`;
+}
+
+function updateProgress() {
+  const pct = activeQuestions.length ? (Object.keys(answered).length / activeQuestions.length) * 100 : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+function showResult() {
+  const pct = Math.round((score / activeQuestions.length) * 100);
+  const msg = pct >= 80 ? "🏆 Excellent! You're well-prepared!" : pct >= 60 ? "👍 Good effort! Review weak topics." : "📖 Keep practicing — focus on concepts first.";
+  const resultDiv = document.createElement('div');
+  resultDiv.className = 'result-panel';
+  resultDiv.innerHTML = `
+    <h2>Quiz Complete!</h2>
+    <div class="big-score">${pct}%</div>
+    <p>${score} / ${activeQuestions.length} correct &nbsp;•&nbsp; ${msg}</p>
+    <button class="btn btn-primary" onclick="startQuiz()">🔄 Retry</button>
+    &nbsp;
+    <button class="btn btn-outline" onclick="resetQuiz()">🏠 Reset</button>
+  `;
+  document.getElementById('quizContainer').appendChild(resultDiv);
+}
+
+// ─── TIPS ────────────────────────────────────────────────────────────────────
+const tips = [
+  { title:"🕐 Time Management", body:"For MCQs, aim for 1-2 minutes per question. If stuck, mark and move on. For coding questions, write pseudocode first, then translate to Python." },
+  { title:"🐍 Python Gotchas to Remember", items:["== checks value, is checks identity","Mutable defaults in functions are shared","List assignment is reference, not copy","Integer division: use // not /","0, '', [], {}, None are all falsy"] },
+  { title:"📊 DSA Quick Patterns", items:["Use dict for frequency count: freq = {}; freq[c] = freq.get(c,0)+1","Two pointers for palindrome/sorted array problems","Sliding window for subarray problems","Use set for deduplication and O(1) lookup","Stack (list with append/pop) for bracket matching"] },
+  { title:"🌐 REST API Must-Know Facts", items:["GET is idempotent and safe (no side effects)","POST is neither idempotent nor safe","DELETE is idempotent (delete twice = same result)","401 = Unauthorized (not authenticated), 403 = Forbidden (no permission)","JSON keys must be strings, values can be any type"] },
+  { title:"💬 Explaining Your Thought Process", body:"Detect evaluates how you think, not just correctness. Always state your approach: 'I'll iterate over the list...', mention edge cases (empty input, negative numbers), and discuss time/space complexity even briefly." },
+  { title:"⚡ Last-Minute Checklist", items:["Practice list comprehensions — they appear frequently","Know sorted(), enumerate(), zip(), map(), filter()","Understand what None, True, False return in conditions","Review common string methods: .strip(), .split(), .join()","REST: memorize status codes 200, 201, 400, 401, 403, 404, 500"] }
+];
+
+function renderTips() {
+  document.getElementById('tipsGrid').innerHTML = tips.map(t => `
+    <div class="tip-card">
+      <h4>${t.title}</h4>
+      ${t.body ? `<p>${t.body}</p>` : ''}
+      ${t.items ? `<ul>${t.items.map(i => `<li>${i}</li>`).join('')}</ul>` : ''}
+    </div>
+  `).join('');
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+renderConcepts();
+renderTips();
+</script>
+</body>
+</html>
