@@ -90,38 +90,71 @@ Searching & Sorting
 
 
 💡 Interview Preparation
+
+
 HR Questions
+
 Technical Questions
+
 System Design Basics
+
 Resume Tips
+
 Communication Skills
+
 🧠 Aptitude Preparation
+
 Quantitative Aptitude
+
 Logical Reasoning
+
 Verbal Ability
+
 ⚙️ Getting Started
+
 1️⃣ Clone the Repository
+
 git clone https://github.com/Dastagiri3/Preparation-Guide.git
+
 2️⃣ Navigate into the Project
+
 cd Preparation-Guide
+
 3️⃣ Start Learning
 
 Explore folders based on your preparation needs and follow the structured content.
 
+
 📖 How to Use
+
 Start with basic DSA topics
+
 Practice coding problems daily
+
 Revise notes regularly
+
 Track your interview preparation
+
 Follow a consistent learning roadmap
+
+
 🌟 Recommended Preparation Flow
+
 Basics → DSA → Problem Solving → Mock Interviews → OA Preparation → Final Interviews
+
+
 📈 Future Improvements
+
 Add company-wise interview questions
+
 Add mock interview section
+
 Add coding contest resources
+
 Add project-based learning roadmap
+
 Add visual diagrams for DSA concepts
+
 🤝 Contributing
 
 Contributions are welcome!
