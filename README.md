@@ -47,25 +47,48 @@ Interview Preparation Resources
 
 Preparation-Guide/
 │
+
 ├── DSA/
+
 ├── Aptitude/
+
 ├── Interview-Questions/
+
 ├── Coding-Problems/
+
 ├── Notes/
+
 ├── Resources/
+
 └── README.md
+
+
 🎯 Topics Covered
+
+
 📘 Data Structures & Algorithms
+
 Arrays
+
 Strings
+
 Linked Lists
+
 Stacks & Queues
+
 Trees
+
 Graphs
+
 Dynamic Programming
+
 Greedy Algorithms
+
 Recursion & Backtracking
+
 Searching & Sorting
+
+
 💡 Interview Preparation
 HR Questions
 Technical Questions
