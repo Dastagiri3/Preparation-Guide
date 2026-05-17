@@ -29,12 +29,22 @@ This repository acts as a centralized learning hub containing useful notes, codi
 
 🔍 Easy-to-navigate folder structure
 
+
 🛠️ Tech & Tools
+
+
 Markdown Documentation
+
 Git & GitHub
+
 Programming Concepts
+
 Interview Preparation Resources
+
+
 📂 Repository Structure
+
+
 Preparation-Guide/
 │
 ├── DSA/
