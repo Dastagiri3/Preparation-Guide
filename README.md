@@ -14,13 +14,21 @@ Placement Preparation
 This repository acts as a centralized learning hub containing useful notes, coding problems, interview tips, and preparation roadmaps.
 
 🚀 Features
+
 📚 Structured preparation materials
+
 💻 Coding interview questions
+
 🧠 DSA topic-wise guidance
+
 🎯 Placement preparation roadmap
+
 📝 Interview experiences and tips
+
 ⚡ Beginner-friendly explanations
+
 🔍 Easy-to-navigate folder structure
+
 🛠️ Tech & Tools
 Markdown Documentation
 Git & GitHub
