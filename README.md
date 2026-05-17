@@ -161,28 +161,44 @@ Contributions are welcome!
 
 If you want to improve this repository:
 
+
 Fork the repository
+
 Create a new branch
+
 git checkout -b feature-name
+
 Commit your changes
+
 git commit -m "Added new preparation material"
+
 Push to GitHub
+
 git push origin feature-name
+
 Open a Pull Request
+
 📬 Contact
+
 👤 Author
 
 J. Guru Dastagiri
 
+
 GitHub: Dastagiri3 GitHub Profile
+
 Repository: Preparation-Guide Repository
+
 ⭐ Support
 
 If you found this repository useful:
 
 Give it a ⭐ on GitHub
+
 Share it with friends
+
 Contribute useful resources
+
 📄 License
 
 This project is open-source and available under the MIT License.
