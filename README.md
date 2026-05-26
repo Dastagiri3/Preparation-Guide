@@ -3,7 +3,7 @@
 
 Preparation Guide is a structured repository designed to help students and aspiring software engineers prepare for:
 
-Structures & Algorithms
+Data Structures & Algorithms
 Coding Interviews
 Online Assessments (OA)
 Technical Interviews
