@@ -189,7 +189,7 @@ GitHub: Dastagiri3 GitHub Profile
 
 Repository: Preparation-Guide Repository
 
-⭐
+⭐ Support
 
 If you found this repository useful:
 
