@@ -1,5 +1,5 @@
 class Solution {
-    public void setZeroes(int[][] matrix) {
+    public static void setZeroes(int[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
         
@@ -53,6 +53,47 @@ class Solution {
             for (int i = 0; i < m; i++) {
                 matrix[i][0] = 0;
             }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[][] matrix1 = {
+            {1, 1, 1},
+            {1, 0, 1},
+            {1, 1, 1}
+        };
+
+        System.out.println("=== Test Case 1 ===");
+        System.out.println("Original Matrix:");
+        printMatrix(matrix1);
+
+        setZeroes(matrix1);
+
+        System.out.println("Matrix after setZeroes:");
+        printMatrix(matrix1);
+
+        System.out.println("\n=== Test Case 2 ===");
+        int[][] matrix2 = {
+            {0, 1, 2, 0},
+            {3, 4, 5, 2},
+            {1, 3, 1, 5}
+        };
+
+        System.out.println("Original Matrix:");
+        printMatrix(matrix2);
+
+        setZeroes(matrix2);
+
+        System.out.println("Matrix after setZeroes:");
+        printMatrix(matrix2);
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            for (int val : row) {
+                System.out.print(val + " ");
+            }
+            System.out.println();
         }
     }
 }
