@@ -1,18 +1,16 @@
 class Solution {
     public int kthElement(int[] a, int[] b, int k) {
         int m = a.length, n = b.length;
-        // Ensure we binary search on the smaller array for efficiency
         if (m > n) {
             return kthElement(b, a, k);
         }
         
-        // We need to pick at least max(0, k-n) elements from a
         int low = Math.max(0, k - n);
         int high = Math.min(k, m);
         
         while (low <= high) {
-            int i = low + (high - low) / 2; // number of elements taken from a
-            int j = k - i;                  // number of elements taken from b
+            int i = low + (high - low) / 2; 
+            int j = k - i;                  
             
             int maxLeftA  = (i == 0) ? Integer.MIN_VALUE : a[i - 1];
             int minRightA = (i == m) ? Integer.MAX_VALUE : a[i];
