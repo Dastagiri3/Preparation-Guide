@@ -20,14 +20,14 @@ public class Main {
         Solution sol = new Solution();
 
         // Example 1
-        System.out.println(sol.strStr("sadbutsad", "sad")); // 0
+        System.out.println(sol.strStr("sadbutsad", "sad"));
 
         // Example 2
-        System.out.println(sol.strStr("leetcode", "leeto")); // -1
+        System.out.println(sol.strStr("leetcode", "leeto"));
 
         // Additional test
-        System.out.println(sol.strStr("hello", "ll")); // 2
-        System.out.println(sol.strStr("aaaaa", "bba")); // -1
-        System.out.println(sol.strStr("", "")); // 0 (though constraints say length >=1)
+        System.out.println(sol.strStr("hello", "ll"));
+        System.out.println(sol.strStr("aaaaa", "bba"));
+        System.out.println(sol.strStr("", ""));
     }
 }
