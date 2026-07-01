@@ -23,16 +23,16 @@ public class Main {
         Solution sol = new Solution();
 
         // Example 1
-        System.out.println(sol.minInsertions("zzazz")); // 0
+        System.out.println(sol.minInsertions("zzazz"));
 
         // Example 2
-        System.out.println(sol.minInsertions("mbadm")); // 2
+        System.out.println(sol.minInsertions("mbadm"));
 
         // Example 3
-        System.out.println(sol.minInsertions("leetcode")); // 5
+        System.out.println(sol.minInsertions("leetcode"));
 
         // Additional test
-        System.out.println(sol.minInsertions("a")); // 0
-        System.out.println(sol.minInsertions("ab")); // 1
+        System.out.println(sol.minInsertions("a"));
+        System.out.println(sol.minInsertions("ab")); 
     }
 }
