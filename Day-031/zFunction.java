@@ -20,7 +20,7 @@ class Solution {
             }
         }
         // z[0] is conventionally set to 0 or n; we set to 0 (common practice)
-        z[0] = 0; // or could be n, but typically 0 for pattern matching
+        z[0] = 0;
         return z;
     }
 }
